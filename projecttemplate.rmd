@@ -25,6 +25,8 @@ a margin line to help you keep track of this guideline!
 
 library(gridExtra)
 library(ggplot2)
+library(ggthemes)
+#library(dplyr)
 ```
 
 ```{r echo=FALSE, Load_the_Data}
@@ -56,20 +58,79 @@ There should be multiple code chunks and text sections; the first one below is
 just to help you get started.
 
 ```{r echo=FALSE, Univariate_Plots}
-grid.arrange(qplot(wine$fixed.acidity),
-qplot(wine$volatile.acidity),
-qplot(wine$citric.acid),
-qplot(wine$residual.sugar),
-qplot(wine$chlorides),
-qplot(wine$free.sulfur.dioxide),
-qplot(wine$total.sulfur.dioxide),
-qplot(wine$density),
-qplot(wine$pH),
-qplot(wine$sulphates),
-qplot(wine$alcohol),
-qplot(wine$quality),
-ncol = 3)
+theme_set(theme_economist())
+qplot(wine$quality, bins = 30)
 ```
+The quality of the wines run from 3 to 8 with most of the wines are either a 5 or a 6. 
+
+```{r echo=FALSE, Univariate_Plots}
+
+```
+
+```{r echo=FALSE, Univariate_Plots}
+# Function to return a subset of wine for which column x is not na
+# example usage no_na(x=wine$fixed.acidity)
+#no_na <- function(x) {
+#  return (dplyr::filter(wine,is.na(x)))
+#}
+#typeof(wine)
+#typeof(no_na(x=wine$fixed.acidity))
+
+geometry <- geom_histogram(bins = 30, color = 'black', fill = '#5760AB')
+
+uni_plot <- function(plotvar, plot_label) {
+  grid.arrange(
+    ggplot(data = wine, aes(x=plotvar)) + geometry + labs(x = plot_label), 
+    ggplot(wine, aes( x = 1, y = plotvar ) ) + 
+      geom_jitter(alpha = 0.6 ) +
+      geom_boxplot(alpha = 0.2, color = 'orange', size = 1) + 
+      labs(y = plot_label)
+,ncol = 2)
+}
+
+uni_plot(plotvar=wine$fixed.acidity, plot_label="Fixed acidity (g/dm^3)")
+```
+
+```{r echo=FALSE, Univariate_Plots}
+uni_plot(plotvar=wine$volatile.acidity, plot_label="Volatile acidity (g/dm^3)")
+```
+
+```{r echo=FALSE, Univariate_Plots}
+uni_plot(plotvar=wine$citric.acid, plot_label="Citric acid (g/dm^3)")
+```
+
+```{r echo=FALSE, Univariate_Plots}
+uni_plot(plotvar=wine$residual.sugar, plot_label="Residual sugar (g/dm^3)")
+```
+
+```{r echo=FALSE, Univariate_Plots}
+uni_plot(plotvar=wine$chlorides, plot_label="Chlorides (g/dm^3)")
+```
+
+```{r echo=FALSE, Univariate_Plots}
+uni_plot(plotvar=wine$free.sulfur.dioxide, plot_label="Free sulfur dioxide (mg/dm^3)")
+```
+
+```{r echo=FALSE, Univariate_Plots}
+uni_plot(plotvar=wine$total.sulfur.dioxide, plot_label="Total sulfur dioxide (mg/dm^3)")
+```
+
+```{r echo=FALSE, Univariate_Plots}
+uni_plot(plotvar=wine$density, plot_label="Density (g/cm^3)")
+```
+
+```{r echo=FALSE, Univariate_Plots}
+uni_plot(plotvar=wine$pH, plot_label="pH")
+```
+
+```{r echo=FALSE, Univariate_Plots}
+uni_plot(plotvar=wine$sulphates, plot_label="Sulphates (g/dm^3)")
+```
+
+```{r echo=FALSE, Univariate_Plots}
+uni_plot(plotvar=wine$alcohol, plot_label="Alcohol (%)")
+```
+
 
 > **Tip**: Make sure that you leave a blank line between the start / end of
 each code block and the end / start of your Markdown text so that it is

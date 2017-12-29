@@ -6,5 +6,9 @@ This is my implementation of the "explore and summarize data" project. This is t
 * Select the console
 * Install the needed packages by running the commands below
 ```
+install.packages('gridExtra')
 install.packages('ggplot2')
+install.packages('ggthemes')
+install.packages('dplyr')
+install.packages('tidyr')
 ```
