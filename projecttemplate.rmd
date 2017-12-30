@@ -26,6 +26,7 @@ a margin line to help you keep track of this guideline!
 library(gridExtra)
 library(ggplot2)
 library(ggthemes)
+library(pander)
 #library(dplyr)
 ```
 
@@ -63,9 +64,6 @@ qplot(wine$quality, bins = 30)
 ```
 The quality of the wines run from 3 to 8 with most of the wines are either a 5 or a 6. 
 
-```{r echo=FALSE, Univariate_Plots}
-
-```
 
 ```{r echo=FALSE, Univariate_Plots}
 # Function to return a subset of wine for which column x is not na
@@ -167,7 +165,35 @@ supporting variables. Try to look at relationships between supporting variables
 as well.
 
 ```{r echo=FALSE, Bivariate_Plots}
+cor_test_with_quality <- function(x) {
+  return(cor.test(x, as.numeric(wine$quality))$estimate)
+}
 
+corTable <- c(
+  cor_test_with_quality(wine$fixed.acidity),
+  cor_test_with_quality(wine$volatile.acidity),
+  cor_test_with_quality(wine$citric.acid),
+  cor_test_with_quality(wine$residual.sugar),
+  cor_test_with_quality(wine$chlorides),
+  cor_test_with_quality(wine$free.sulfur.dioxide),
+  cor_test_with_quality(wine$total.sulfur.dioxide),
+  cor_test_with_quality(wine$density),
+  cor_test_with_quality(wine$pH),
+  cor_test_with_quality(wine$sulphates),
+  cor_test_with_quality(wine$alcohol))
+names(corTable) <- c('fixed.acidity', 'volatile.acidity', 'citric.acid',
+                         'residual.sugar', 'chlorides', 'free.sulfur.dioxide',
+                         'total.sulfur.dioxide', 'density', 'pH',
+                         'sulphates', 'alcohol')
+corTable
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality <- function(xplot) {
+  ggplot(aes(x=xplot, y=wine$quality), data = wine) +
+    geom_point()
+}
+biv_scat_plot_quality(wine$alcohol)
 ```
 
 # Bivariate Analysis
