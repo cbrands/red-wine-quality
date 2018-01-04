@@ -27,6 +27,7 @@ library(gridExtra)
 library(ggplot2)
 library(ggthemes)
 library(pander)
+library(Hmisc)
 #library(dplyr)
 ```
 
@@ -189,11 +190,78 @@ corTable
 ```
 
 ```{r echo=FALSE, Bivariate_Plots}
-biv_scat_plot_quality <- function(xplot) {
-  ggplot(aes(x=xplot, y=wine$quality), data = wine) +
-    geom_point()
+biv_scat_plot_quality <- function(xplot, label) {
+  grid.arrange(
+    ggplot(aes(x=factor(wine$quality), y=xplot), data = wine) +
+      geom_point() + 
+      labs(x = "quality", y = label) + 
+      geom_jitter( alpha = .3) + 
+      geom_boxplot(fill="pink", color="red", alpha=0.3)  +
+      coord_flip() + 
+      stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "blue", 
+               shape = 8, 
+               size = 4),
+    ggplot(aes(x=factor(wine$quality), y=log10(xplot)), data = wine) +
+      geom_point() +
+      labs(x = "quality", y = paste("log10(", label, ")")) +
+      geom_jitter( alpha = .3) + 
+      geom_boxplot(fill="pink", color="red", alpha=0.3)  +
+      coord_flip() + 
+      stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "blue", 
+               shape = 8, 
+               size = 4)
+  ,ncol = 2)
 }
-biv_scat_plot_quality(wine$alcohol)
+
+
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$fixed.acidity, "Fixed acidity (g/dm^3)")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$volatile.acidity, "Volatile acidity (g/dm^3)")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$citric.acid, "Citric acid (g/dm^3)")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$residual.sugar, "Residual sugar (g/dm^3)")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$chlorides, "Chlorides (g/dm^3)")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$free.sulfur.dioxide, "Free sulfur dioxide (mg/dm^3)")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$total.sulfur.dioxide, "Total sulfur dioxide (mg/dm^3)")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$density, "Density (g/cm^3)")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$pH, "pH")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$sulphates, "Sulphates (g/dm^3)")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_quality(wine$alcohol, "Alcohol (%)")
 ```
 
 # Bivariate Analysis
