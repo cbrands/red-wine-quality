@@ -289,8 +289,45 @@ you plan on creating any mathematical models, this is the section where you
 will do that.
 
 ```{r echo=FALSE, Multivariate_Plots}
-
+multi_plot <- function(x, y, z, alpha, size, xlabel, ylabel, zlabel) {
+  ggplot(data = wine,aes(x = x, y = y, alpha = alpha)) +
+    geom_point(alpha = alpha, size = size, aes(color = factor(z))) +
+    xlab(xlabel) +
+  ylab(ylabel) + 
+  scale_color_manual(breaks = c("3", "4", "5", "6", "7", "8"),
+                      labels = c("3", "4", "5",
+                                 "6", "7", "8"),
+                      values = c("#E69F00", "#56B4E9", "#009E73", 
+                                 "#F0E442", "#0072B2", "#D55E00")) +
+  scale_fill_manual(breaks = c("3", "4", "5", "6", "7", "8"),
+                      labels = c("3", "4", "5",
+                                 "6", "7", "8"),
+                      values = c("#E69F00", "#56B4E9", "#009E73", 
+                                 "#F0E442", "#0072B2", "#D55E00"))
+  #labs(color=zlabel)
+}
 ```
+
+```{r echo=FALSE, Multivariate_Plots}
+multi_plot(x=wine$alcohol,y=wine$density, z=wine$quality, 
+           alpha = 0.8, size=0.8,
+           xlabel="Alcohol (%)", ylabel="Density (g/cm^3)",
+           zlabel="Quality level")
+```
+
+```{r echo=FALSE, Multivariate_Plots}
+multi_qplot <- function(x, y, z, alpha=0.4) {
+  qplot(x, y, data=wine, color=z) +
+    geom_point(position=position_jitter(w = 0.025, h = 0.025), alpha=alpha) +
+    guides(alpha=FALSE)
+}
+multi_qplot(wine$density, wine$volatile.acidity, wine$quality) +
+  xlab("Density (g/cm^3)") +
+  ylab("Volatile acidity (g/cm^3)") +
+  labs(color="Quality level")
+```
+
+
 
 # Multivariate Analysis
 
