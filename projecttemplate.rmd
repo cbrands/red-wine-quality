@@ -1,27 +1,13 @@
-TITLE by YOUR_NAME_HERE
+Exploratory data analysis of red wine by Charles Brands
 ========================================================
 
 > **Tip**: You will see quoted sections like this throughout the template to
 help you construct your report. Make sure that you remove these notes before
 you finish and submit your project!
 
-> **Tip**: One of the requirements of this project is that your code follows
-good formatting techniques, including limiting your lines to 80 characters or
-less. If you're using RStudio, go into Preferences \> Code \> Display to set up
-a margin line to help you keep track of this guideline!
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
-# Load all of the packages that you end up using in your analysis in this code
-# chunk.
-
-# Notice that the parameter "echo" was set to FALSE for this code chunk. This
-# prevents the code from displaying in the knitted HTML output. You should set
-# echo=FALSE for all code chunks in your file, unless it makes sense for your
-# report to show the code that generated a particular plot.
-
-# The other parameters for "message" and "warning" should also be set to FALSE
-# for other code chunks once you have verified that each plot comes out as you
-# want it to. This will clean up the flow of your report.
+#Loading the needed libraries
 
 library(gridExtra)
 library(ggplot2)
@@ -52,28 +38,17 @@ This dataset has 1599 observations.
 
 # Univariate Plots Section
 
-> **Tip**: In this section, you should perform some preliminary exploration of
-your dataset. Run some summaries of the data and create univariate plots to
-understand the structure of the individual variables in your dataset. Don't
-forget to add a comment after each plot or closely-related group of plots!
-There should be multiple code chunks and text sections; the first one below is
-just to help you get started.
-
 ```{r echo=FALSE, Univariate_Plots}
 theme_set(theme_economist())
 qplot(wine$quality, bins = 30)
 ```
-The quality of the wines run from 3 to 8 with most of the wines are either a 5 or a 6. 
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$quality)
+```
 
+The quality of the wines run from 3 to 8 with most of the wines are either a 5 or a 6. The quality is a discrete value. The mean is 5.6.
 
 ```{r echo=FALSE, Univariate_Plots}
-# Function to return a subset of wine for which column x is not na
-# example usage no_na(x=wine$fixed.acidity)
-#no_na <- function(x) {
-#  return (dplyr::filter(wine,is.na(x)))
-#}
-#typeof(wine)
-#typeof(no_na(x=wine$fixed.acidity))
 
 geometry <- geom_histogram(bins = 30, color = 'black', fill = '#5760AB')
 
@@ -83,53 +58,113 @@ uni_plot <- function(plotvar, plot_label) {
     ggplot(wine, aes( x = 1, y = plotvar ) ) + 
       geom_jitter(alpha = 0.6 ) +
       geom_boxplot(alpha = 0.2, color = 'orange', size = 1) + 
+      stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "blue", 
+               shape = 8, 
+               size = 4) +
       labs(y = plot_label)
-,ncol = 2)
+  ,ncol = 2)
 }
 
 uni_plot(plotvar=wine$fixed.acidity, plot_label="Fixed acidity (g/dm^3)")
 ```
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$fixed.acidity)
+```
+
+The fixed acidity is a right tailed distribution. The median is at 7.9 g/dm^3. Due to the outliers on the right the mean is pulled to 8.3 g/dm^3.
 
 ```{r echo=FALSE, Univariate_Plots}
 uni_plot(plotvar=wine$volatile.acidity, plot_label="Volatile acidity (g/dm^3)")
 ```
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$volatile.acidity)
+```
+
+The volatile acidity is a normal distribution with a few outliers to the right. The mean and median are pretty close together at 0.5200 and 0.5278 g/dm^3 respectively.
 
 ```{r echo=FALSE, Univariate_Plots}
 uni_plot(plotvar=wine$citric.acid, plot_label="Citric acid (g/dm^3)")
 ```
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$citric.acid)
+```
+
+The citric acid distribution is weird. It looks like two right skewed distribution on top of oneother.
 
 ```{r echo=FALSE, Univariate_Plots}
 uni_plot(plotvar=wine$residual.sugar, plot_label="Residual sugar (g/dm^3)")
 ```
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$residual.sugar)
+```
+
+The residual sugar distribution has a sharp peak at around 2.2 g/dm^3. Although the tail is long the peak is so far above the rest that the mean is only pulled a little bit to the right of the median. The boxplot is also rather flat as the amount of wines with a residual sugar around 2.2 is huge compared to the rest.
 
 ```{r echo=FALSE, Univariate_Plots}
 uni_plot(plotvar=wine$chlorides, plot_label="Chlorides (g/dm^3)")
 ```
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$chlorides)
+```
+
+The chlorides distribution is also sharply peaked. This time the peak is around 0.079 g/dm^3. 
 
 ```{r echo=FALSE, Univariate_Plots}
 uni_plot(plotvar=wine$free.sulfur.dioxide, plot_label="Free sulfur dioxide (mg/dm^3)")
 ```
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$free.sulfur.dioxide)
+```
+
+The free sulfur distribution has a tail on the right. The median and mean are 14.00 and 15.87 mg/dm^3 respectively.
 
 ```{r echo=FALSE, Univariate_Plots}
 uni_plot(plotvar=wine$total.sulfur.dioxide, plot_label="Total sulfur dioxide (mg/dm^3)")
 ```
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$total.sulfur.dioxide)
+```
+
+The total sulur distribution is a right tailed distribution with some outlier very far to the right. The median and the mean are 38.00 and 46.47 mg/dm^3 respectively with a max at 289 mg/dm^3!
 
 ```{r echo=FALSE, Univariate_Plots}
 uni_plot(plotvar=wine$density, plot_label="Density (g/cm^3)")
 ```
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$density)
+```
+
+The density is a normal distributin with a mean of 0.9967 g/cm^3.
 
 ```{r echo=FALSE, Univariate_Plots}
 uni_plot(plotvar=wine$pH, plot_label="pH")
 ```
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$pH)
+```
+
+The ph distribution is a normal distribution with a mean at 3.311
 
 ```{r echo=FALSE, Univariate_Plots}
 uni_plot(plotvar=wine$sulphates, plot_label="Sulphates (g/dm^3)")
 ```
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$sulphates)
+```
+
+The sulfates distribution is a right skewed distributionwith some outliers far to the right. 
 
 ```{r echo=FALSE, Univariate_Plots}
 uni_plot(plotvar=wine$alcohol, plot_label="Alcohol (%)")
 ```
 
+```{r echo=FALSE, Univariate_Plots}
+summary(wine$alcohol)
+```
+
+The alcohol percentage distribution is right skewd with a median of 10.20% and a mean of 10.42%.
 
 > **Tip**: Make sure that you leave a blank line between the start / end of
 each code block and the end / start of your Markdown text so that it is
@@ -290,21 +325,19 @@ will do that.
 
 ```{r echo=FALSE, Multivariate_Plots}
 multi_plot <- function(x, y, z, alpha, size, xlabel, ylabel, zlabel) {
+  breaks = c("3", "4", "5", "6", "7", "8")
+  labels = c("3", "4", "5", "6", "7", "8")
+  color_values = c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00")
   ggplot(data = wine,aes(x = x, y = y, alpha = alpha)) +
     geom_point(alpha = alpha, size = size, aes(color = factor(z))) +
     xlab(xlabel) +
   ylab(ylabel) + 
-  scale_color_manual(breaks = c("3", "4", "5", "6", "7", "8"),
-                      labels = c("3", "4", "5",
-                                 "6", "7", "8"),
-                      values = c("#E69F00", "#56B4E9", "#009E73", 
-                                 "#F0E442", "#0072B2", "#D55E00")) +
-  scale_fill_manual(breaks = c("3", "4", "5", "6", "7", "8"),
-                      labels = c("3", "4", "5",
-                                 "6", "7", "8"),
-                      values = c("#E69F00", "#56B4E9", "#009E73", 
-                                 "#F0E442", "#0072B2", "#D55E00"))
-  #labs(color=zlabel)
+  scale_color_manual(breaks = breaks,
+                      labels = labels,
+                      values = color_values) +
+  scale_fill_manual(breaks = breaks,
+                      labels = labels,
+                      values = color_values)
 }
 ```
 
@@ -327,6 +360,9 @@ multi_qplot(wine$density, wine$volatile.acidity, wine$quality) +
   labs(color="Quality level")
 ```
 
+```{r echo=FALSE, Multivariate_Plots}
+
+```
 
 
 # Multivariate Analysis
