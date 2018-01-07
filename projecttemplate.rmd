@@ -319,20 +319,44 @@ We can see that increasing the alcohol percentage loweres the density. This is n
 biv_scat_plot_simple(wine$pH, wine$citric.acid, "pH", "Citric acid (g/dm^3)")
 ```
 
-# Bivariate Analysis
+We see that increasing the citric acidity concentration loweres the pH value. Not surpricing.
 
-> **Tip**: As before, summarize what you found in your bivariate explorations
-here. Use the questions below to guide your discussion.
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_simple(wine$pH, wine$fixed.acidity, "pH", "Fixed acidity (g/dm^3)")
+```
+
+Increasing the fixed acidity lowers the pH. 
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_simple(wine$pH, wine$volatile.acidity, "pH", "Volatile acidity (g/dm^3)")
+```
+
+Volatile acidity has not much effect on the pH.
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_simple(wine$total.sulfur.dioxide, wine$free.sulfur.dioxide, "Total sulfur dioxide (mg/dm^3)", "Free sulfur dioxide (mg/dm^3)")
+```
+
+```{r echo=FALSE, Bivariate_Plots}
+cor_test(wine$total.sulfur.dioxide, wine$free.sulfur.dioxide)
+```
+
+The correlation between total sulfur dioxide and free sulfur dioxide is 0.668 the strongest I found in this dataset.
+
+# Bivariate Analysis
 
 ### Talk about some of the relationships you observed in this part of the \
 investigation. How did the feature(s) of interest vary with other features in \
 the dataset?
+The strongest positive correlation with quality is the alcohol percentage. Further sulphates and citric acidity had positive effects on the wine quality. The wine quality was negatively influenced by volatile aidity, chlorides, and density. The influence of density could be explained by the negative correlation with alcohol. 
+Contrary to my expectation residual sugar levels had little to no effect on the wine quality.
 
 ### Did you observe any interesting relationships between the other features \
 (not the main feature(s) of interest)?
+Fixed acidity and citric acidity had a strong negative effect on the pH while volatile acidity had no effect on the pH. Yet Fixed acidity had no effect on the quality of the wine. So apparently the quality of the wine is not determined by the acidity of the wine but is more influenced by the precence of citric acid which has a positive effect on quality and volatile acidity which has a negative effect.
 
 ### What was the strongest relationship you found?
-
+The relation between total sulfur dioxide and free sulfur dioxide was the strongest relation found with a correlation coefficient of 0,668.
 
 # Multivariate Plots Section
 
