@@ -219,33 +219,18 @@ We see that alcohol, sulphates, citric acidity, and fixed acidity have a positiv
 
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality <- function(xplot, label) {
-  grid.arrange(
-    ggplot(aes(x=factor(wine$quality), y=xplot), data = wine) +
-      geom_point() + 
-      labs(x = "quality", y = label) + 
-      geom_jitter( alpha = .3) + 
-      geom_boxplot(fill="pink", color="red", alpha=0.3)  +
-      coord_flip() + 
-      stat_summary(fun.y = "mean", 
-               geom = "point", 
-               color = "blue", 
-               shape = 8, 
-               size = 4),
-    ggplot(aes(x=factor(wine$quality), y=log10(xplot)), data = wine) +
-      geom_point() +
-      labs(x = "quality", y = paste("log10(", label, ")")) +
-      geom_jitter( alpha = .3) + 
-      geom_boxplot(fill="pink", color="red", alpha=0.3)  +
-      coord_flip() + 
-      stat_summary(fun.y = "mean", 
+  ggplot(aes(x=factor(wine$quality), y=xplot), data = wine) +
+    geom_point() + 
+    labs(x = "quality", y = label) + 
+    geom_jitter( alpha = .3) + 
+    geom_boxplot(fill="pink", color="red", alpha=0.3)  +
+    coord_flip() + 
+    stat_summary(fun.y = "mean", 
                geom = "point", 
                color = "blue", 
                shape = 8, 
                size = 4)
-  ,ncol = 2)
 }
-
-
 ```
 
 ```{r echo=FALSE, Bivariate_Plots}
