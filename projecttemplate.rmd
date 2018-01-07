@@ -188,11 +188,7 @@ The citric acid distribution is very unusual. It looks like two right skewed dis
 
 # Bivariate Plots Section
 
-> **Tip**: Based on what you saw in the univariate plots, what relationships
-between variables might be interesting to look at in this section? Don't limit
-yourself to relationships between a main output feature and one of the
-supporting variables. Try to look at relationships between supporting variables
-as well.
+I am interested in the chemical properties that have an effect on the quality of the wine. I intend to plot the quality with all the available properties but first let us make a correlation table to get a first idea of which properties have the strongest effect on the quality of the wine.
 
 ```{r echo=FALSE, Bivariate_Plots}
 cor_test_with_quality <- function(x) {
@@ -215,8 +211,11 @@ names(corTable) <- c('fixed.acidity', 'volatile.acidity', 'citric.acid',
                          'residual.sugar', 'chlorides', 'free.sulfur.dioxide',
                          'total.sulfur.dioxide', 'density', 'pH',
                          'sulphates', 'alcohol')
+print("Correlation of wine quality with different properties")
 corTable
 ```
+
+We see that alcohol, sulphates, citric acidity, and fixed acidity have a positive correlation with the wine quality. Volatile acidity, chlorides, total sulfur dioxide, and density have a negative correlation. The rest doesn't seem to do much.
 
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality <- function(xplot, label) {
@@ -253,45 +252,67 @@ biv_scat_plot_quality <- function(xplot, label) {
 biv_scat_plot_quality(wine$fixed.acidity, "Fixed acidity (g/dm^3)")
 ```
 
+In this plot we see that fixed acidity has almost no effect on the wine quality.
+
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality(wine$volatile.acidity, "Volatile acidity (g/dm^3)")
 ```
+
+This plot clearly shows that increasing the volitile acidity degrades the wine quality.
 
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality(wine$citric.acid, "Citric acid (g/dm^3)")
 ```
 
+Increasing the citric acidity increases the quality of the wine.
+
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality(wine$residual.sugar, "Residual sugar (g/dm^3)")
 ```
+
+Residual sugar seems to have no effect on the wine quality. 
 
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality(wine$chlorides, "Chlorides (g/dm^3)")
 ```
 
+Chlorides have a negative impact on the wine quality.
+
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality(wine$free.sulfur.dioxide, "Free sulfur dioxide (mg/dm^3)")
 ```
+
+Free sulfur dioxide is mostly present in the wines of average quality. Both the good wines as the terrible wines have a lower free sulfur dioxide concentration.
 
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality(wine$total.sulfur.dioxide, "Total sulfur dioxide (mg/dm^3)")
 ```
 
+Total sulfur dioxide is mostly present in the wines of average quality. Both the good wines as the terrible wines have a lower total sulfur dioxide concentration.
+
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality(wine$density, "Density (g/cm^3)")
 ```
+
+Increasing the density loweres the quality of the wine.
 
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality(wine$pH, "pH")
 ```
 
+Lowering the pH has a positive impact on the quality of the wine. 
+
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality(wine$sulphates, "Sulphates (g/dm^3)")
 ```
 
+Increasing sulphates concentration increases the quality of the wine.
+
 ```{r echo=FALSE, Bivariate_Plots}
 biv_scat_plot_quality(wine$alcohol, "Alcohol (%)")
 ```
+
+Increasing the alcohol concentration increases the wine quality.
 
 # Bivariate Analysis
 
