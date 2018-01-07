@@ -191,8 +191,12 @@ The citric acid distribution is very unusual. It looks like two right skewed dis
 I am interested in the chemical properties that have an effect on the quality of the wine. I intend to plot the quality with all the available properties but first let us make a correlation table to get a first idea of which properties have the strongest effect on the quality of the wine.
 
 ```{r echo=FALSE, Bivariate_Plots}
+cor_test <- function(x, y) {
+  return(cor.test(x, as.numeric(y))$estimate)
+}
+
 cor_test_with_quality <- function(x) {
-  return(cor.test(x, as.numeric(wine$quality))$estimate)
+  return(cor_test(x, wine$quality))
 }
 
 corTable <- c(
@@ -298,6 +302,22 @@ biv_scat_plot_quality(wine$alcohol, "Alcohol (%)")
 ```
 
 Increasing the alcohol concentration increases the wine quality.
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_simple <- function(xplot, yplot, xlabel, ylabel) {
+  ggplot(aes(x=xplot, y=yplot), data = wine) +
+    geom_point() + 
+    labs(x = xlabel, y = ylabel) 
+}
+
+biv_scat_plot_simple(wine$alcohol, wine$density, "Alcohol (%)", "Density (g/cm^3)")
+```
+
+We can see that increasing the alcohol percentage loweres the density. This is not surpricing as alcohol has a lower density than water. This can explain the increase in wine quality as the density is lowered. The other properties that had an effect on wine quality did not have a clear relation with alcohol percentage.
+
+```{r echo=FALSE, Bivariate_Plots}
+biv_scat_plot_simple(wine$pH, wine$citric.acid, "pH", "Citric acid (g/dm^3)")
+```
 
 # Bivariate Analysis
 
