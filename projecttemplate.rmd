@@ -14,7 +14,6 @@ library(ggplot2)
 library(ggthemes)
 library(pander)
 library(Hmisc)
-#library(dplyr)
 ```
 
 ```{r echo=FALSE, Load_the_Data}
@@ -40,7 +39,11 @@ This dataset has 1599 observations.
 
 ```{r echo=FALSE, Univariate_Plots_quality}
 theme_set(theme_economist())
-qplot(wine$quality, bins = 30)
+ggplot(data=wine, aes(quality)) + 
+  geom_bar() + 
+  xlab("Quality") + 
+  ylab("Number of wines") +
+  ggtitle("Wine Quality distribution")
 ```
 ```{r echo=FALSE, Univariate_Plots_Quality_summary}
 summary(wine$quality)
@@ -54,7 +57,7 @@ geometry <- geom_histogram(bins = 30, color = 'black', fill = '#5760AB')
 
 uni_plot <- function(plotvar, plot_label) {
   grid.arrange(
-    ggplot(data = wine, aes(x=plotvar)) + geometry + labs(x = plot_label), 
+    ggplot(data = wine, aes(x=plotvar)) + geometry + labs(x = plot_label, y = "Number of wines"), 
     ggplot(wine, aes( x = 1, y = plotvar ) ) + 
       geom_jitter(alpha = 0.6 ) +
       geom_boxplot(alpha = 0.2, color = 'orange', size = 1) + 
@@ -454,27 +457,58 @@ make sure you justify why you chose each plot by describing what it shows.
 
 ### Plot One
 ```{r echo=FALSE, Plot_One}
+ggplot(data=wine, aes(quality)) + 
+  geom_bar() + 
+  xlab("Quality") + 
+  ylab("Number of wines") +
+  ggtitle("Wine Quality distribution")
+```
 
+```{r echo=FALSE, summary_1}
+summary(wine$quality)
 ```
 
 ### Description One
-
+This report is abput the wine quality so the first plot I have choosen is the wine quality distribution. The distribution apears to be normal with most wines having a quality of 5 or 6. The mean is 5.6. The scale runs from 0 to 10 but no wines with a quality below 3 or above 8 were found in this dataset.
 
 ### Plot Two
 ```{r echo=FALSE, Plot_Two}
-
+  ggplot(aes(x=factor(wine$quality), y=wine$alcohol), data = wine) +
+    geom_point() + 
+    labs(x = "quality", y = "Alcohol (%)") + 
+    geom_jitter( alpha = .3) + 
+    geom_boxplot(fill="pink", color="red", alpha=0.3)  +
+    coord_flip() + 
+    ggtitle("The effect of alcohol percentage on wine quality") +
+    stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "blue", 
+               shape = 8, 
+               size = 4)
 ```
 
 ### Description Two
-
+The property with the largest effect on wine quality is alcohol percentage. A higher alcohol percentage gives better wines. However as the overlap in the boxplot show alcohol percentage alone is not enough to garantee a good wine.
 
 ### Plot Three
 ```{r echo=FALSE, Plot_Three}
-
+breaks = c("3", "4", "5", "6", "7", "8")
+labels = breaks
+color_values = c("#D55E00", "#E69F00", "#F0E442", 
+                 "#009E73", "#56B4E9", "#0072B2")
+ggplot(data = wine,aes(x = wine$alcohol, y = wine$volatile.acidity)) +
+  geom_point(aes(color = factor(wine$quality))) +
+  xlab("Alcohol (%)") +
+  ylab("Volatile acidity (g/dm^3)") +
+  ggtitle("Wine Quality distribution as a function\nof alcohol percentage and volatile acidity") +
+  scale_color_manual(name = "Quality", 
+                     breaks = breaks, 
+                     labels = labels, 
+                     values = color_values) 
 ```
 
 ### Description Three
-
+After the effect of alcohol the strongest effect on wine quality comes from volatile acidity or better the lack of volatile acidity. In general the lower the volatile acidity the better the wine. In this plot the best wines are in the lower right corner while the terrible wines are found in the upper left corner. It is also clear that the effect of alcohol percentage is stronger. Below 10% there are hardly any good wines. 
 ------
 
 # Reflection
