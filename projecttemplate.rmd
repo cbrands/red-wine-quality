@@ -360,54 +360,74 @@ The relation between total sulfur dioxide and free sulfur dioxide was the strong
 
 # Multivariate Plots Section
 
-> **Tip**: Now it's time to put everything together. Based on what you found in
-the bivariate plots section, create a few multivariate plots to investigate
-more complex interactions between variables. Make sure that the plots that you
-create here are justified by the plots you explored in the previous section. If
-you plan on creating any mathematical models, this is the section where you
-will do that.
-
 ```{r echo=FALSE, Multivariate_Plots}
-multi_plot <- function(x, y, z, alpha, size, xlabel, ylabel, zlabel) {
+multi_plot <- function(x, y, z, xlabel, ylabel, zlabel) {
   breaks = c("3", "4", "5", "6", "7", "8")
-  labels = c("3", "4", "5", "6", "7", "8")
-  color_values = c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00")
-  ggplot(data = wine,aes(x = x, y = y, alpha = alpha)) +
-    geom_point(alpha = alpha, size = size, aes(color = factor(z))) +
+  labels = breaks
+  color_values = c("#D55E00", "#E69F00", "#F0E442", "#009E73", "#56B4E9", "#0072B2")
+  ggplot(data = wine,aes(x = x, y = y)) +
+    geom_point(aes(color = factor(z))) +
     xlab(xlabel) +
-  ylab(ylabel) + 
-  scale_color_manual(breaks = breaks,
-                      labels = labels,
-                      values = color_values) +
-  scale_fill_manual(breaks = breaks,
-                      labels = labels,
-                      values = color_values)
+    ylab(ylabel) +
+    scale_color_manual(name = zlabel, breaks = breaks, labels = labels, values = color_values) 
 }
 ```
+
+```{r echo=FALSE, Multivariate_Plots}
+multi_plot(x=wine$alcohol,y=wine$sulphates, z=wine$quality, 
+           xlabel="Alcohol (%)", ylabel="Sulphates (g/dm^3)",
+           zlabel="Quality")
+```
+
+Higher quality wines are produced with a higher alcohol content and a higher sulphates concentration. 
 
 ```{r echo=FALSE, Multivariate_Plots}
 multi_plot(x=wine$alcohol,y=wine$density, z=wine$quality, 
-           alpha = 0.8, size=0.8,
            xlabel="Alcohol (%)", ylabel="Density (g/cm^3)",
-           zlabel="Quality level")
+           zlabel="Quality")
 ```
+
+In the bivariate section that increasing the density loweres the quality of the wine. In this plot we see that this is mostly due to the fact that a lower density means a higher alcohol concentration (alcohol is lighter than water). The better quality wine is caused by the higher alcohol percentage not the lower density.
 
 ```{r echo=FALSE, Multivariate_Plots}
-multi_qplot <- function(x, y, z, alpha=0.4) {
-  qplot(x, y, data=wine, color=z) +
-    geom_point(position=position_jitter(w = 0.025, h = 0.025), alpha=alpha) +
-    guides(alpha=FALSE)
-}
-multi_qplot(wine$density, wine$volatile.acidity, wine$quality) +
-  xlab("Density (g/cm^3)") +
-  ylab("Volatile acidity (g/cm^3)") +
-  labs(color="Quality level")
+multi_plot(x=wine$pH,y=wine$volatile.acidity, z=wine$quality,
+           xlabel="pH", ylabel="Volatile acidity (g/dm^3)",
+           zlabel="Quality")
 ```
+
+Higher volatile acidity loweres the wine quality. The pH itself has little effect.
 
 ```{r echo=FALSE, Multivariate_Plots}
-
+multi_plot(x=wine$pH,y=wine$citric.acid, z=wine$quality,
+           xlabel="pH", ylabel="Citric acid (g/dm^3)",
+           zlabel="Quality")
 ```
 
+More citric acid results in better wines. Again the influence of pH is small at best.
+
+```{r echo=FALSE, Multivariate_Plots}
+multi_plot(x=wine$citric.acid,y=wine$volatile.acidity, z=wine$quality,
+           xlabel="Citric acid (g/dm^3)", ylabel="Volatile acidity (g/dm^3)",
+           zlabel="Quality")
+```
+
+This plot shows the combined effect of higher citric acid and lower volatile acidity. With the exception of a few outliers the best wines are at the bottom right of this plot.
+
+```{r echo=FALSE, Multivariate_Plots}
+multi_plot(x=wine$alcohol,y=wine$volatile.acidity, z=wine$quality,
+           xlabel="Alcohol (%)", ylabel="Volatile acidity (g/dm^3)",
+           zlabel="Quality")
+```
+
+This plot shows that good wines are produced by higher alcohol and lower volatile acidity. It also shows that the effect of alcohol is larger than the effect of volatile accidity. Below an alcohol percentage of 10% it is very hard to produce a good wine.
+
+```{r echo=FALSE, Multivariate_Plots}
+multi_plot(x=wine$alcohol,y=wine$citric.acid, z=wine$quality,
+           xlabel="Alcohol (%)", ylabel="Citric acid (g/dm^3)",
+           zlabel="Quality")
+```
+
+The best wines are produced by a high alcohol percentage and a larger citric acid concentration. Again the effect of alcohol is the strongest.
 
 # Multivariate Analysis
 
@@ -415,10 +435,10 @@ multi_qplot(wine$density, wine$volatile.acidity, wine$quality) +
 investigation. Were there features that strengthened each other in terms of \
 looking at your feature(s) of interest?
 
-### Were there any interesting or surprising interactions between features?
+The best wines are produced by highe alcohol percentage, a higher sulphates concentration (0.8 - 1.1), a higher citric acid concentration and a low volatile acidity. 
 
-### OPTIONAL: Did you create any models with your dataset? Discuss the \
-strengths and limitations of your model.
+### Were there any interesting or surprising interactions between features?
+Residual sugar had almost no effect on the wine quality. Wine quality was not much influenced by the pH itself, but more on the presence of citric acid and absense of volatile acid.
 
 ------
 
