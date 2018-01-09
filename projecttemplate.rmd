@@ -1,11 +1,6 @@
 Exploratory data analysis of red wine by Charles Brands
 ========================================================
 
-> **Tip**: You will see quoted sections like this throughout the template to
-help you construct your report. Make sure that you remove these notes before
-you finish and submit your project!
-
-
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
 #Loading the needed libraries
 
@@ -32,7 +27,7 @@ summary(wine$quality)
 table(wine$quality)
 ```
 
-In this analysis we look into the effect of different chemical properties on the wine quality. This dataset has 12 variabeles, the quality and 11 chemical properties of the wine (fixed.acidity, volatile.acidity, citric.acid, residual.sugar, chlorides, free.sulfur.dioxide, total.sulfur.dioxide, density, pH, sulphates, and alcohol).
+In this analysis we look into the effect of different chemical properties on the wine quality. This dataset has 12 variables, the quality and 11 chemical properties of the wine (fixed.acidity, volatile.acidity, citric.acid, residual.sugar, chlorides, free.sulfur.dioxide, total.sulfur.dioxide, density, pH, sulphates, and alcohol).
 This dataset has 1599 observations.
 
 # Univariate Plots Section
@@ -447,14 +442,6 @@ Residual sugar had almost no effect on the wine quality. Wine quality was not mu
 
 # Final Plots and Summary
 
-> **Tip**: You've done a lot of exploration and have built up an understanding
-of the structure of and relationships between the variables in your dataset.
-Here, you will select three plots from all of your previous exploration to
-present here as a summary of some of your most interesting findings. Make sure
-that you have refined your selected plots for good titling, axis labels (with
-units), and good aesthetic choices (e.g. color, transparency). After each plot,
-make sure you justify why you chose each plot by describing what it shows.
-
 ### Plot One
 ```{r echo=FALSE, Plot_One}
 ggplot(data=wine, aes(quality)) + 
@@ -513,10 +500,10 @@ After the effect of alcohol the strongest effect on wine quality comes from vola
 
 # Reflection
 
-> **Tip**: Here's the final step! Reflect on the exploration you performed and
-the insights you found. What were some of the struggles that you went through?
-What went well? What was surprising? Make sure you include an insight into
-future work that could be done with the dataset.
+This data set contains information on 1599 red wines with twelve variables. The quality and eleven chemical properties. The quality is discrete and the rest is continuous. The quality is a scale from 0 to 10 but no wines with a quality below 3 or above 8 were found in this dataset. This study could be improved by gathering more data from wines with very low or very high quality scores.
 
-> **Tip**: Don't forget to remove this, and the other **Tip** sections before
-saving your final work and knitting the final report!
+Wine quality improved by increasing the alcohol percentage and the citric acid concentration. Increasing the volatile acidity concentration degrades the wine quality.
+
+I was suprised to find that the risidual sugar concentration had almost no influence on the wine quality. Clearly not everything gets better from adding sugar! 
+
+I was also suprised to find that increasing the sulfates concentration from 0.5 to 0.8 g/dm^3 improved the quality. Adding more sulfates did not seem to help.
