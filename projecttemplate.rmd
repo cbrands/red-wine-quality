@@ -73,92 +73,92 @@ summary(wine$fixed.acidity)
 
 The fixed acidity is a right tailed distribution. The median is at 7.9 g/dm^3. Due to the outliers on the right the mean is pulled to 8.3 g/dm^3.
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_volatile_acidity}
 uni_plot(plotvar=wine$volatile.acidity, plot_label="Volatile acidity (g/dm^3)")
 ```
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_volatile_acidity_summary}
 summary(wine$volatile.acidity)
 ```
 
 The volatile acidity is a normal distribution with a few outliers to the right. The mean and median are pretty close together at 0.5200 and 0.5278 g/dm^3 respectively.
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_citric_acid}
 uni_plot(plotvar=wine$citric.acid, plot_label="Citric acid (g/dm^3)")
 ```
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_citric_acid_summary}
 summary(wine$citric.acid)
 ```
 
 The citric acid distribution is weird. It looks like two right skewed distribution on top of oneother.
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_residual_sugar}
 uni_plot(plotvar=wine$residual.sugar, plot_label="Residual sugar (g/dm^3)")
 ```
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_residual_sugar_summary}
 summary(wine$residual.sugar)
 ```
 
 The residual sugar distribution has a sharp peak at around 2.2 g/dm^3. Although the tail is long the peak is so far above the rest that the mean is only pulled a little bit to the right of the median. The boxplot is also rather flat as the amount of wines with a residual sugar around 2.2 is huge compared to the rest.
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_chlorides}
 uni_plot(plotvar=wine$chlorides, plot_label="Chlorides (g/dm^3)")
 ```
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_chlorides_summary}
 summary(wine$chlorides)
 ```
 
 The chlorides distribution is also sharply peaked. This time the peak is around 0.079 g/dm^3. 
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_sulfur_dioxide}
 uni_plot(plotvar=wine$free.sulfur.dioxide, plot_label="Free sulfur dioxide (mg/dm^3)")
 ```
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_sulfur_dioxide_summary}
 summary(wine$free.sulfur.dioxide)
 ```
 
 The free sulfur distribution has a tail on the right. The median and mean are 14.00 and 15.87 mg/dm^3 respectively.
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_total_sulfur_dioxide}
 uni_plot(plotvar=wine$total.sulfur.dioxide, plot_label="Total sulfur dioxide (mg/dm^3)")
 ```
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_total_sulfur_dioxide_summary}
 summary(wine$total.sulfur.dioxide)
 ```
 
 The total sulur distribution is a right tailed distribution with some outlier very far to the right. The median and the mean are 38.00 and 46.47 mg/dm^3 respectively with a max at 289 mg/dm^3!
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_density}
 uni_plot(plotvar=wine$density, plot_label="Density (g/cm^3)")
 ```
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_density_summary}
 summary(wine$density)
 ```
 
 The density is a normal distributin with a mean of 0.9967 g/cm^3.
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_ph}
 uni_plot(plotvar=wine$pH, plot_label="pH")
 ```
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_ph_summary}
 summary(wine$pH)
 ```
 
 The ph distribution is a normal distribution with a mean at 3.311
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_sulphates}
 uni_plot(plotvar=wine$sulphates, plot_label="Sulphates (g/dm^3)")
 ```
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_sulphates_summary}
 summary(wine$sulphates)
 ```
 
 The sulfates distribution is a right skewed distributionwith some outliers far to the right. 
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_alcohol}
 uni_plot(plotvar=wine$alcohol, plot_label="Alcohol (%)")
 ```
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, Univariate_Plots_alcohol_summary}
 summary(wine$alcohol)
 ```
 
@@ -188,7 +188,7 @@ The citric acid distribution is very unusual. It looks like two right skewed dis
 
 I am interested in the chemical properties that have an effect on the quality of the wine. I intend to plot the quality with all the available properties but first let us make a correlation table to get a first idea of which properties have the strongest effect on the quality of the wine.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_correlation}
 cor_test <- function(x, y) {
   return(cor.test(x, as.numeric(y))$estimate)
 }
@@ -219,7 +219,7 @@ corTable
 
 We see that alcohol, sulphates, citric acidity, and fixed acidity have a positive correlation with the wine quality. Volatile acidity, chlorides, total sulfur dioxide, and density have a negative correlation. The rest doesn't seem to do much.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_generic_function}
 biv_scat_plot_quality <- function(xplot, label) {
   ggplot(aes(x=factor(wine$quality), y=xplot), data = wine) +
     geom_point() + 
@@ -235,73 +235,73 @@ biv_scat_plot_quality <- function(xplot, label) {
 }
 ```
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_fixed_acidity}
 biv_scat_plot_quality(wine$fixed.acidity, "Fixed acidity (g/dm^3)")
 ```
 
 In this plot we see that fixed acidity has almost no effect on the wine quality.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_volatile_acidity}
 biv_scat_plot_quality(wine$volatile.acidity, "Volatile acidity (g/dm^3)")
 ```
 
 This plot clearly shows that increasing the volitile acidity degrades the wine quality.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_citric_acid}
 biv_scat_plot_quality(wine$citric.acid, "Citric acid (g/dm^3)")
 ```
 
 Increasing the citric acidity increases the quality of the wine.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_residual_sugar}
 biv_scat_plot_quality(wine$residual.sugar, "Residual sugar (g/dm^3)")
 ```
 
 Residual sugar seems to have no effect on the wine quality. 
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_chlorides}
 biv_scat_plot_quality(wine$chlorides, "Chlorides (g/dm^3)")
 ```
 
 Chlorides have a negative impact on the wine quality.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_free_sulfur_dioxide}
 biv_scat_plot_quality(wine$free.sulfur.dioxide, "Free sulfur dioxide (mg/dm^3)")
 ```
 
 Free sulfur dioxide is mostly present in the wines of average quality. Both the good wines as the terrible wines have a lower free sulfur dioxide concentration.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_total_sulfur_dioxide}
 biv_scat_plot_quality(wine$total.sulfur.dioxide, "Total sulfur dioxide (mg/dm^3)")
 ```
 
 Total sulfur dioxide is mostly present in the wines of average quality. Both the good wines as the terrible wines have a lower total sulfur dioxide concentration.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_density}
 biv_scat_plot_quality(wine$density, "Density (g/cm^3)")
 ```
 
 Increasing the density loweres the quality of the wine.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_ph}
 biv_scat_plot_quality(wine$pH, "pH")
 ```
 
 Lowering the pH has a positive impact on the quality of the wine. 
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_sulphates}
 biv_scat_plot_quality(wine$sulphates, "Sulphates (g/dm^3)")
 ```
 
 Increasing sulphates concentration increases the quality of the wine.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_alcohol}
 biv_scat_plot_quality(wine$alcohol, "Alcohol (%)")
 ```
 
 Increasing the alcohol concentration increases the wine quality.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_alcohol_density}
 biv_scat_plot_simple <- function(xplot, yplot, xlabel, ylabel) {
   ggplot(aes(x=xplot, y=yplot), data = wine) +
     geom_point() + 
@@ -313,29 +313,29 @@ biv_scat_plot_simple(wine$alcohol, wine$density, "Alcohol (%)", "Density (g/cm^3
 
 We can see that increasing the alcohol percentage loweres the density. This is not surpricing as alcohol has a lower density than water. This can explain the increase in wine quality as the density is lowered. The other properties that had an effect on wine quality did not have a clear relation with alcohol percentage.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_ph_citric_acid}
 biv_scat_plot_simple(wine$pH, wine$citric.acid, "pH", "Citric acid (g/dm^3)")
 ```
 
 We see that increasing the citric acidity concentration loweres the pH value. Not surpricing.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_ph_fixed_acidity}
 biv_scat_plot_simple(wine$pH, wine$fixed.acidity, "pH", "Fixed acidity (g/dm^3)")
 ```
 
 Increasing the fixed acidity lowers the pH. 
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_ph_volatile_acidity}
 biv_scat_plot_simple(wine$pH, wine$volatile.acidity, "pH", "Volatile acidity (g/dm^3)")
 ```
 
 Volatile acidity has not much effect on the pH.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_free_total_sulfur_dioxide}
 biv_scat_plot_simple(wine$total.sulfur.dioxide, wine$free.sulfur.dioxide, "Total sulfur dioxide (mg/dm^3)", "Free sulfur dioxide (mg/dm^3)")
 ```
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, Bivariate_Plots_free_total_corr_test}
 cor_test(wine$total.sulfur.dioxide, wine$free.sulfur.dioxide)
 ```
 
@@ -358,7 +358,7 @@ The relation between total sulfur dioxide and free sulfur dioxide was the strong
 
 # Multivariate Plots Section
 
-```{r echo=FALSE, Multivariate_Plots}
+```{r echo=FALSE, Multivariate_Plots_generic_function}
 multi_plot <- function(x, y, z, xlabel, ylabel, zlabel) {
   breaks = c("3", "4", "5", "6", "7", "8")
   labels = breaks
@@ -371,7 +371,7 @@ multi_plot <- function(x, y, z, xlabel, ylabel, zlabel) {
 }
 ```
 
-```{r echo=FALSE, Multivariate_Plots}
+```{r echo=FALSE, Multivariate_Plots_alcohol_sulphates}
 multi_plot(x=wine$alcohol,y=wine$sulphates, z=wine$quality, 
            xlabel="Alcohol (%)", ylabel="Sulphates (g/dm^3)",
            zlabel="Quality")
@@ -379,7 +379,7 @@ multi_plot(x=wine$alcohol,y=wine$sulphates, z=wine$quality,
 
 Higher quality wines are produced with a higher alcohol content and a higher sulphates concentration. 
 
-```{r echo=FALSE, Multivariate_Plots}
+```{r echo=FALSE, Multivariate_Plots_alcohol_density}
 multi_plot(x=wine$alcohol,y=wine$density, z=wine$quality, 
            xlabel="Alcohol (%)", ylabel="Density (g/cm^3)",
            zlabel="Quality")
@@ -387,7 +387,7 @@ multi_plot(x=wine$alcohol,y=wine$density, z=wine$quality,
 
 In the bivariate section that increasing the density loweres the quality of the wine. In this plot we see that this is mostly due to the fact that a lower density means a higher alcohol concentration (alcohol is lighter than water). The better quality wine is caused by the higher alcohol percentage not the lower density.
 
-```{r echo=FALSE, Multivariate_Plots}
+```{r echo=FALSE, Multivariate_Plots_ph_volatile_acidity}
 multi_plot(x=wine$pH,y=wine$volatile.acidity, z=wine$quality,
            xlabel="pH", ylabel="Volatile acidity (g/dm^3)",
            zlabel="Quality")
@@ -395,7 +395,7 @@ multi_plot(x=wine$pH,y=wine$volatile.acidity, z=wine$quality,
 
 Higher volatile acidity loweres the wine quality. The pH itself has little effect.
 
-```{r echo=FALSE, Multivariate_Plots}
+```{r echo=FALSE, Multivariate_Plots_ph_citric_acid}
 multi_plot(x=wine$pH,y=wine$citric.acid, z=wine$quality,
            xlabel="pH", ylabel="Citric acid (g/dm^3)",
            zlabel="Quality")
@@ -403,7 +403,7 @@ multi_plot(x=wine$pH,y=wine$citric.acid, z=wine$quality,
 
 More citric acid results in better wines. Again the influence of pH is small at best.
 
-```{r echo=FALSE, Multivariate_Plots}
+```{r echo=FALSE, Multivariate_Plots_citric_volatile}
 multi_plot(x=wine$citric.acid,y=wine$volatile.acidity, z=wine$quality,
            xlabel="Citric acid (g/dm^3)", ylabel="Volatile acidity (g/dm^3)",
            zlabel="Quality")
@@ -411,7 +411,7 @@ multi_plot(x=wine$citric.acid,y=wine$volatile.acidity, z=wine$quality,
 
 This plot shows the combined effect of higher citric acid and lower volatile acidity. With the exception of a few outliers the best wines are at the bottom right of this plot.
 
-```{r echo=FALSE, Multivariate_Plots}
+```{r echo=FALSE, Multivariate_Plots_alcohol_volatile}
 multi_plot(x=wine$alcohol,y=wine$volatile.acidity, z=wine$quality,
            xlabel="Alcohol (%)", ylabel="Volatile acidity (g/dm^3)",
            zlabel="Quality")
@@ -419,7 +419,7 @@ multi_plot(x=wine$alcohol,y=wine$volatile.acidity, z=wine$quality,
 
 This plot shows that good wines are produced by higher alcohol and lower volatile acidity. It also shows that the effect of alcohol is larger than the effect of volatile accidity. Below an alcohol percentage of 10% it is very hard to produce a good wine.
 
-```{r echo=FALSE, Multivariate_Plots}
+```{r echo=FALSE, Multivariate_Plots_alcohol_citric}
 multi_plot(x=wine$alcohol,y=wine$citric.acid, z=wine$quality,
            xlabel="Alcohol (%)", ylabel="Citric acid (g/dm^3)",
            zlabel="Quality")
