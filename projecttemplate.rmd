@@ -54,7 +54,8 @@ geometry <- geom_histogram(bins = 30, color = 'black', fill = '#5760AB')
 
 uni_plot <- function(plotvar, plot_label) {
   grid.arrange(
-    ggplot(data = wine, aes(x=plotvar)) + geometry + labs(x = plot_label, y = "Number of wines"), 
+    ggplot(data = wine, aes(x=plotvar)) + geometry + 
+      labs(x = plot_label, y = "Number of wines"), 
     ggplot(wine, aes( x = 1, y = plotvar ) ) + 
       geom_jitter(alpha = 0.6 ) +
       geom_boxplot(alpha = 0.2, color = 'orange', size = 1) + 
@@ -112,7 +113,8 @@ summary(wine$chlorides)
 The chlorides distribution is also sharply peaked. This time the peak is around 0.079 g/dm^3. 
 
 ```{r echo=FALSE, Univariate_Plots_sulfur_dioxide}
-uni_plot(plotvar=wine$free.sulfur.dioxide, plot_label="Free sulfur dioxide (mg/dm^3)")
+uni_plot(plotvar=wine$free.sulfur.dioxide, 
+         plot_label="Free sulfur dioxide (mg/dm^3)")
 ```
 ```{r echo=FALSE, Univariate_Plots_sulfur_dioxide_summary}
 summary(wine$free.sulfur.dioxide)
@@ -121,7 +123,8 @@ summary(wine$free.sulfur.dioxide)
 The free sulfur distribution has a tail on the right. The median and mean are 14.00 and 15.87 mg/dm^3 respectively.
 
 ```{r echo=FALSE, Univariate_Plots_total_sulfur_dioxide}
-uni_plot(plotvar=wine$total.sulfur.dioxide, plot_label="Total sulfur dioxide (mg/dm^3)")
+uni_plot(plotvar=wine$total.sulfur.dioxide, 
+         plot_label="Total sulfur dioxide (mg/dm^3)")
 ```
 ```{r echo=FALSE, Univariate_Plots_total_sulfur_dioxide_summary}
 summary(wine$total.sulfur.dioxide)
@@ -169,14 +172,15 @@ The alcohol percentage distribution is right skewd with a median of 10.20% and a
 # Univariate Analysis
 
 ### What is the structure of your dataset?
-The red wine dataset had originally 1599 rows and 13 columns. I deleted the column X as it basically is the same as the rownumber. So I had 12 columns left. The columns are the quality and 11 chemical properties of the wine ( fixed.acidity, volatile.acidity, citric.acid, residual.sugar, chlorides, free.sulfur.dioxide, total.sulfur.dioxide, density, pH, sulphates, alcohol, and quality). The quality is a discrete with values: 4, 5, 6, 7, and 8 the rest is continuous.
+The red wine dataset had originally 1599 rows and 13 columns. I deleted the column X as it basically is the same as the rownumber. So I had 12 columns left. The columns are the quality and 11 chemical properties of the wine (fixed.acidity, volatile.acidity, citric.acid, residual.sugar, chlorides, free.sulfur.dioxide, total.sulfur.dioxide, density, pH, sulphates, alcohol, and quality). The quality is a discrete with values: 4, 5, 6, 7, and 8 the rest is continuous.
 
 ### What is/are the main feature(s) of interest in your dataset?
 The most important feature of the dataset is quality. I am interested how the quality is affected by the other properties of the wine. 
 
 ### What other features in the dataset do you think will help support your \
 investigation into your feature(s) of interest?
-At this point we have not yet analized the data. As I don't drink alcohol and have never tasted wine I am guessing here. As people in general seem to like sugar and alcohol I would expect that those properties have a positive impact on the quality. I would expect sulfur, sulfates and chlorides to have a negative effect.
+At this point we have not yet analized the data. As I don't drink alcohol and have never tasted wine I am guessing here. As people in general seem to like sugar and alcohol I would expect that those properties have a positive impact \
+on the quality. I would expect sulfur, sulfates and chlorides to have a negative effect.
 
 ### Did you create any new variables from existing variables in the dataset?
 No. I did delete the column X as the sample number ad the rowcount are the same.
@@ -268,13 +272,15 @@ biv_scat_plot_quality(wine$chlorides, "Chlorides (g/dm^3)")
 Chlorides have a negative impact on the wine quality.
 
 ```{r echo=FALSE, Bivariate_Plots_free_sulfur_dioxide}
-biv_scat_plot_quality(wine$free.sulfur.dioxide, "Free sulfur dioxide (mg/dm^3)")
+biv_scat_plot_quality(wine$free.sulfur.dioxide, 
+                      "Free sulfur dioxide (mg/dm^3)")
 ```
 
 Free sulfur dioxide is mostly present in the wines of average quality. Both the good wines as the terrible wines have a lower free sulfur dioxide concentration.
 
 ```{r echo=FALSE, Bivariate_Plots_total_sulfur_dioxide}
-biv_scat_plot_quality(wine$total.sulfur.dioxide, "Total sulfur dioxide (mg/dm^3)")
+biv_scat_plot_quality(wine$total.sulfur.dioxide, 
+                      "Total sulfur dioxide (mg/dm^3)")
 ```
 
 Total sulfur dioxide is mostly present in the wines of average quality. Both the good wines as the terrible wines have a lower total sulfur dioxide concentration.
@@ -310,7 +316,8 @@ biv_scat_plot_simple <- function(xplot, yplot, xlabel, ylabel) {
     labs(x = xlabel, y = ylabel) 
 }
 
-biv_scat_plot_simple(wine$alcohol, wine$density, "Alcohol (%)", "Density (g/cm^3)")
+biv_scat_plot_simple(wine$alcohol, wine$density, 
+                     "Alcohol (%)", "Density (g/cm^3)")
 ```
 
 We can see that increasing the alcohol percentage loweres the density. This is not surpricing as alcohol has a lower density than water. This can explain the increase in wine quality as the density is lowered. The other properties that had an effect on wine quality did not have a clear relation with alcohol percentage.
@@ -322,19 +329,23 @@ biv_scat_plot_simple(wine$pH, wine$citric.acid, "pH", "Citric acid (g/dm^3)")
 We see that increasing the citric acidity concentration loweres the pH value. Not surpricing.
 
 ```{r echo=FALSE, Bivariate_Plots_ph_fixed_acidity}
-biv_scat_plot_simple(wine$pH, wine$fixed.acidity, "pH", "Fixed acidity (g/dm^3)")
+biv_scat_plot_simple(wine$pH, wine$fixed.acidity, 
+                     "pH", "Fixed acidity (g/dm^3)")
 ```
 
 Increasing the fixed acidity lowers the pH. 
 
 ```{r echo=FALSE, Bivariate_Plots_ph_volatile_acidity}
-biv_scat_plot_simple(wine$pH, wine$volatile.acidity, "pH", "Volatile acidity (g/dm^3)")
+biv_scat_plot_simple(wine$pH, wine$volatile.acidity, 
+                     "pH", "Volatile acidity (g/dm^3)")
 ```
 
 Volatile acidity has not much effect on the pH.
 
 ```{r echo=FALSE, Bivariate_Plots_free_total_sulfur_dioxide}
-biv_scat_plot_simple(wine$total.sulfur.dioxide, wine$free.sulfur.dioxide, "Total sulfur dioxide (mg/dm^3)", "Free sulfur dioxide (mg/dm^3)")
+biv_scat_plot_simple(wine$total.sulfur.dioxide, wine$free.sulfur.dioxide, 
+                     "Total sulfur dioxide (mg/dm^3)", 
+                     "Free sulfur dioxide (mg/dm^3)")
 ```
 
 ```{r echo=FALSE, Bivariate_Plots_free_total_corr_test}
@@ -364,12 +375,14 @@ The relation between total sulfur dioxide and free sulfur dioxide was the strong
 multi_plot <- function(x, y, z, xlabel, ylabel, zlabel) {
   breaks = c("3", "4", "5", "6", "7", "8")
   labels = breaks
-  color_values = c("#D55E00", "#E69F00", "#F0E442", "#009E73", "#56B4E9", "#0072B2")
+  color_values = c("#D55E00", "#E69F00", "#F0E442", 
+                   "#009E73", "#56B4E9", "#0072B2")
   ggplot(data = wine,aes(x = x, y = y)) +
     geom_point(aes(color = factor(z))) +
     xlab(xlabel) +
     ylab(ylabel) +
-    scale_color_manual(name = zlabel, breaks = breaks, labels = labels, values = color_values) 
+    scale_color_manual(name = zlabel, breaks = breaks, 
+                       labels = labels, values = color_values) 
 }
 ```
 
@@ -485,11 +498,13 @@ breaks = c("3", "4", "5", "6", "7", "8")
 labels = breaks
 color_values = c("#D55E00", "#E69F00", "#F0E442", 
                  "#009E73", "#56B4E9", "#0072B2")
+title1 = "Wine Quality distribution as a function\n"
+title2 = "of alcohol percentage and volatile acidity"
 ggplot(data = wine,aes(x = wine$alcohol, y = wine$volatile.acidity)) +
   geom_point(aes(color = factor(wine$quality))) +
   xlab("Alcohol (%)") +
   ylab("Volatile acidity (g/dm^3)") +
-  ggtitle("Wine Quality distribution as a function\nof alcohol percentage and volatile acidity") +
+  ggtitle(paste(title1,title2)) +
   scale_color_manual(name = "Quality", 
                      breaks = breaks, 
                      labels = labels, 
