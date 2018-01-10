@@ -7,7 +7,6 @@ Exploratory data analysis of red wine by Charles Brands
 library(gridExtra)
 library(ggplot2)
 library(ggthemes)
-#library(pander)
 library(Hmisc)
 ```
 
