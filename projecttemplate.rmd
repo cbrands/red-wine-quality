@@ -16,19 +16,14 @@ library(Hmisc)
 wine <- read.csv("wineQualityReds.csv")
 # Column X is basically the row number, remove it
 wine$X <- NULL
-head(wine)
 ```
 
-```{r echo=FALSE, Show_summary}
-str(wine)
-
-# Lets look at quality
-summary(wine$quality)
-table(wine$quality)
-```
-
-In this analysis we look into the effect of different chemical properties on the wine quality. This dataset has 12 variables, the quality and 11 chemical properties of the wine (fixed.acidity, volatile.acidity, citric.acid, residual.sugar, chlorides, free.sulfur.dioxide, total.sulfur.dioxide, density, pH, sulphates, and alcohol).
+In this analysis we look into the effect of different chemical properties on the wine quality. Below I show the structure of the dataset. This dataset has 12 variables, the quality and 11 chemical properties of the wine (fixed.acidity, volatile.acidity, citric.acid, residual.sugar, chlorides, free.sulfur.dioxide, total.sulfur.dioxide, density, pH, sulphates, and alcohol). The quality is a discrete value the chemical properties are continuous.
 This dataset has 1599 observations.
+
+```{r echo=FALSE, Show_structure}
+str(wine)
+```
 
 # Univariate Plots Section
 
@@ -40,11 +35,18 @@ ggplot(data=wine, aes(quality)) +
   ylab("Number of wines") +
   ggtitle("Wine Quality distribution")
 ```
+
+```{r echo=FALSE, Show_table}
+table(wine$quality)
+```
+
+As the table and plot above show there are no wines in this dataset with a quality below 3 or above 8. Most wines are either a 5 or a 6.
+
 ```{r echo=FALSE, Univariate_Plots_Quality_summary}
 summary(wine$quality)
 ```
 
-The quality of the wines run from 3 to 8 with most of the wines are either a 5 or a 6. The quality is a discrete value. The mean is 5.6.
+The quality of the wines run from 3 to 8. The mean is 5.6 the median is 6.0.
 
 ```{r echo=FALSE, Univariate_Plots_fixed_acidity}
 
@@ -496,6 +498,7 @@ ggplot(data = wine,aes(x = wine$alcohol, y = wine$volatile.acidity)) +
 
 ### Description Three
 After the effect of alcohol the strongest effect on wine quality comes from volatile acidity or better the lack of volatile acidity. In general the lower the volatile acidity the better the wine. In this plot the best wines are in the lower right corner while the terrible wines are found in the upper left corner. It is also clear that the effect of alcohol percentage is stronger. Below 10% there are hardly any good wines. 
+
 ------
 
 # Reflection
