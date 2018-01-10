@@ -9,6 +9,6 @@ This is my implementation of the "explore and summarize data" project. This is t
 install.packages('gridExtra')
 install.packages('ggplot2')
 install.packages('ggthemes')
-install.packages('dplyr')
-install.packages('tidyr')
+install.packages('Hmisc')
 ```
+In rstudio click on run -> Run All
